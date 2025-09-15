@@ -12,6 +12,8 @@ use App\Http\Controllers\Petugas\PetugasAuthController;
 use App\Http\Controllers\Petugas\DashboardController as PetugasDashboardController;
 use App\Http\Controllers\Petugas\PengaduanController as PetugasPengaduanController;
 use App\Http\Controllers\Petugas\TanggapanController as PetugasTanggapanController;
+use App\Http\Controllers\Masyarakat\DashboardController as MasyarakatDashboardController;
+
 
 // ==========================
 // Halaman landing (umum sebelum login)
@@ -31,7 +33,6 @@ Route::post('/logout', fn() => redirect('/'))->name('logout');
 // ==========================
 // Group route untuk masyarakat
 // ==========================
-
 Route::prefix('masyarakat')->group(function () {
     // Register
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('masyarakat.register');
@@ -44,8 +45,8 @@ Route::prefix('masyarakat')->group(function () {
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('masyarakat.logout');
 
-    // Dashboard
-    Route::get('/dashboard', [PengaduanController::class, 'dashboard'])
+    // Dashboard masyarakat
+    Route::get('/dashboard', [MasyarakatDashboardController::class, 'index'])
         ->middleware('auth:masyarakat')
         ->name('masyarakat.dashboard');
 
