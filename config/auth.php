@@ -8,21 +8,24 @@ return [
     ],
 
     'guards' => [
-    'web' => [
-        'driver' => 'session',
-        'provider' => 'users', // default user biasa
-    ],
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users', // default user biasa
+        ],
 
-    'masyarakat' => [
-        'driver' => 'session',
-        'provider' => 'masyarakat', // ✅ harus sama dengan providers
+        'masyarakat' => [
+            'driver' => 'session',
+            'provider' => 'masyarakat', // ✅ harus sama dengan providers
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'petugas', // ✅ harus sama dengan providers
+        ],
+        'petugas' => [
+            'driver' => 'session',
+            'provider' => 'petugas', // gunakan provider petugas
+        ],
     ],
-    'admin' => [
-        'driver' => 'session',
-        'provider' => 'admin', // ✅ harus sama dengan providers
-    ],
-
-],
 
 'providers' => [
     'users' => [
@@ -35,7 +38,7 @@ return [
         'model' => App\Models\Masyarakat::class,
     ],
 
-    'admin' => [
+    'petugas' => [
         'driver' => 'eloquent',
         'model' => App\Models\Petugas::class, // gunakan model Petugas
     ],
