@@ -256,7 +256,6 @@
 {{-- Smooth Scroll Script --}}
 @push('scripts')
 <script>
-    // Fungsi smooth scroll dengan easing (lebih halus daripada bawaan CSS)
     function smoothScrollTo(target, duration = 1200) {
         const start = window.pageYOffset;
         const end = typeof target === "number" ? target : target.getBoundingClientRect().top + window.pageYOffset;
@@ -281,7 +280,7 @@
         requestAnimationFrame(animation);
     }
 
-    // Aktifkan di semua link dengan href="#..."
+    // Aktifkan smooth scroll ke semua link dengan href="#..."
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function(e) {
             e.preventDefault();

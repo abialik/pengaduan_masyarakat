@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="min-h-screen flex justify-center items-center bg-white py-12">
-    <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-lg">
+    <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-lg" data-aos="zoom-in">
         <h2 class="text-xl font-bold text-center text-orange-600 mb-6">Formulir Pengaduan Masyarakat</h2>
 
         <form action="{{ route('masyarakat.pengaduan.submit') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
@@ -47,4 +47,20 @@
         </form>
     </div>
 </section>
+
+{{-- AOS Animation --}}
+@push('scripts')
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                easing: 'ease-in-out'
+            });
+        });
+    </script>
+@endpush
 @endsection

@@ -3,7 +3,7 @@
 @section('content')
 
 {{-- Hero Section --}}
-<section class="relative bg-gradient-to-br from-orange-100 via-white to-pink-100 min-h-screen flex items-center px-6">
+<section class="relative bg-gradient-to-br from-orange-100 via-white to-pink-100 min-h-screen flex items-center px-6 overflow-hidden">
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         {{-- Text --}}
         <div class="text-center md:text-left" data-aos="fade-right">
@@ -33,7 +33,8 @@
         <div class="flex justify-center md:justify-end relative" data-aos="zoom-in-up">
             <img src="{{ asset('img/hero.png') }}" alt="Ilustrasi Hero" 
                  class="w-full max-w-2xl rounded-3xl shadow-2xl drop-shadow-xl hover:scale-105 transition duration-500">
-            <div class="absolute -z-10 blur-3xl w-72 h-72 bg-orange-300/40 rounded-full top-20 left-10"></div>
+            {{-- Parallax Blur --}}
+            <div id="parallax-circle" class="absolute -z-10 blur-3xl w-72 h-72 bg-orange-300/40 rounded-full top-20 left-10"></div>
         </div>
     </div>
 </section>
@@ -43,18 +44,18 @@
     <div class="max-w-7xl mx-auto">
 
         @if(isset($pengaduans))
-            <h2 class="text-3xl font-extrabold text-gray-900 mb-12 text-center md:text-left border-b-2 border-orange-200 pb-4">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-12 text-center md:text-left border-b-2 border-orange-200 pb-4" data-aos="fade-up">
                 📋 Laporan Saya
             </h2>
 
             @if($pengaduans->isEmpty())
-                <div class="bg-white p-16 rounded-3xl shadow-lg text-center">
+                <div class="bg-white p-16 rounded-3xl shadow-lg text-center" data-aos="fade-up" data-aos-delay="100">
                     <p class="text-gray-500 text-lg">Belum ada laporan yang dikirim 🚫</p>
                 </div>
             @else
                 <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($pengaduans as $item)
-                        <div class="group relative flex flex-col rounded-3xl overflow-hidden bg-white shadow-md hover:shadow-2xl hover:-translate-y-1 transition duration-300 border border-gray-100">
+                        <div class="group relative flex flex-col rounded-3xl overflow-hidden bg-white shadow-md hover:shadow-2xl hover:-translate-y-1 transition duration-300 border border-gray-100" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 100 }}">
                             {{-- Foto --}}
                             @if($item->foto)
                                 <img src="{{ asset('storage/' . $item->foto) }}" 
@@ -96,5 +97,40 @@
         @endif
     </div>
 </div>
+
+{{-- Script untuk smooth scroll, animasi & parallax --}}
+@push('scripts')
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Inisialisasi AOS (animasi scroll, bisa muncul lagi saat scroll ke atas)
+            AOS.init({
+                duration: 1000,
+                once: false, // biar animasi jalan lagi saat scroll ke atas
+                easing: 'ease-in-out'
+            });
+
+            // Smooth scroll ke anchor
+            document.querySelectorAll('.scroll-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith("#")) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            // Parallax Effect pada lingkaran blur
+            const parallaxCircle = document.getElementById("parallax-circle");
+            window.addEventListener("scroll", () => {
+                let offset = window.scrollY * 0.3; // semakin kecil semakin halus
+                parallaxCircle.style.transform = `translateY(${offset}px)`;
+            });
+        });
+    </script>
+@endpush
 
 @endsection
