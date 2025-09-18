@@ -49,9 +49,9 @@
                         <i class="fas fa-eye"></i>
                     </span>
                 </div>
-                <div class="text-right mt-1">
+                <!-- <div class="text-right mt-1">
                     <a href="#" class="text-xs text-orange-500 hover:underline">Lupa password?</a>
-                </div>
+                </div> -->
             </div>
 
             <!-- Button -->
